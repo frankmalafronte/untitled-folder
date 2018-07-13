@@ -1,0 +1,71 @@
+function solve(puzzle){
+
+function getRow(inputGrid,rowIdx){
+  return inputGrid[rowIdx]
+}
+
+function getColumn(inputGrid,colIdx){
+  output = []
+  for (let i=0;i<inputGrid.length;i++){
+    output.push(inputGrid[i][colIdx])
+  }
+  return output
+}
+
+function getGrid(inputGrid,xCoor,yCoor){
+
+let output = [];
+let obj = {
+  0: 0,
+  1: 3,
+  2: 6
+}
+
+let rowIdx = obj[xCoor]
+let colIdx = obj[yCoor]
+
+
+for(let i = rowIdx; i < rowIdx+3;i++){
+  output.push(inputGrid[i][colIdx])
+  output.push(inputGrid[i][colIdx+1])
+  output.push(inputGrid[i][colIdx+2])
+}
+return output
+}
+
+function includes1to9(arr){
+  arr.sort(function(a, b){return a - b});
+  for(let i=0;i<arr.length;i++){
+    if(arr[i] !== i+1){
+      return false + " no " + (i+1).toString()
+  }
+}
+return true
+}
+
+//check grids
+    for(let i = 0;i< 3;i++){
+      for(let j = 0; j < 3 ; j++){
+
+        if(includes1to9(getGrid(puzzle,i,j)) !== true){
+          return false
+        }
+
+
+      }
+    }
+
+//check rows and columns
+  for(let k = 0; k < puzzle.length; k++){
+      if(includes1to9(getRow(puzzle,k)) !== true
+         &&
+       includes1to9(getColumn(puzzle,k)) !== true
+      ){ return false
+
+
+      }
+  }
+
+// if we get to this line then the puzzle is correct
+   return true
+  }
